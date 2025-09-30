@@ -75,7 +75,11 @@ cd examples
 go run cmd/main.go
 ```
 
-## � Docker Deployment
+## 📚 Documentation
+
+Visit the [complete documentation website](https://lucascluz.github.io/memora) for detailed API reference, examples, and guides.
+
+## 🐳 Docker Deployment
 
 Build and run with Docker:
 

@@ -1,3 +1,15 @@
 theme: jekyll-theme-minimal
 title: Memora Documentation
 description: A simple, fast, and efficient distributed cache store built in Go
+url: "https://lucascluz.github.io"
+baseurl: "/memora"
+repository: "Lucascluz/memora"
+author:
+  name: "Lucas"
+  email: "lucas.carvalho.da.luz12@gmail.com"
+github_username: Lucascluz
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-github-metadata
+  - jekyll-sitemap

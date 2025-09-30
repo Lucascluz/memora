@@ -1,6 +1,6 @@
 # Memora Documentation
 
-This repository contains the documentation website for Memora, a distributed cache store built in Go.
+This directory contains the documentation website for Memora, a distributed cache store built in Go.
 
 ## GitHub Pages Setup
 
@@ -10,8 +10,8 @@ This site is ready to be deployed on GitHub Pages. To set it up:
 2. Go to your repository settings
 3. Navigate to "Pages" section
 4. Set source to "Deploy from a branch"
-5. Select "main" branch and "/ (root)" folder
-6. Your site will be available at `https://yourusername.github.io/memora-docs`
+5. Select "main" (or "master") branch and "/docs" folder
+6. Your site will be available at `https://lucascluz.github.io/memora`
 
 ## Local Development
 
