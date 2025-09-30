@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package memora;
+
+option go_package = "github.com/Lucascluz/memora-proto/gen;memora";
+
+service MemoraService{
+    rpc Set (SetRequest) returns (SetResponse);
+    rpc Get (GetRequest) returns (GetResponse);
+    rpc Delete (DeleteRequest) returns (DeleteResponse);
+}
+
+message SetRequest {
+    string key = 1;
+    bytes value = 2;
+    int64 ttl = 3;
+}
+
+message SetResponse {
+    bool success = 1;
+    string status = 2;
+}
+
+message GetRequest {
+    string key = 1; 
+}
+
+message GetResponse {
+    string status = 1;
+    bytes value = 2;
+}
+
+message DeleteRequest {
+    string key = 1;
+}
+
+message DeleteResponse {
+    bool found = 1;
+    string status = 2;
+}
