@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memora - Distributed Cache Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #fff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        main {
+            background: white;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #2c3e50;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .feature h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 30px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+
+        .code-block pre {
+            margin: 0;
+        }
+
+        .api-section {
+            background: #f8f9fa;
+        }
+
+        .api-method {
+            background: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .api-method h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .api-method p {
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .installation {
+            background: #e8f4fd;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+
+        .installation h3 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Memora</h1>
+                <p>A simple, fast, and efficient distributed cache store built in Go</p>
+                <a href="#getting-started" class="btn">Get Started</a>
+                <a href="https://github.com/Lucascluz/memora" class="btn btn-outline" target="_blank">View on GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <h2>Why Memora?</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3>🚀 High Performance</h3>
+                        <p>Built with Go for maximum performance and minimal latency. Handle thousands of concurrent requests with ease.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🎯 Simple API</h3>
+                        <p>Clean and intuitive API with just three essential operations: Set, Get, and Delete. No complexity, just efficiency.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🔌 gRPC Powered</h3>
+                        <p>Uses gRPC for fast, type-safe communication between client and server with automatic code generation.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>📦 Easy Integration</h3>
+                        <p>Simple Go client library that abstracts all the complexity. Just import and start caching.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🛡️ Thread Safe</h3>
+                        <p>Built-in concurrency control ensures data consistency across multiple goroutines and clients.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🌐 Distributed Ready</h3>
+                        <p>Designed to work across multiple nodes for building scalable distributed systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="getting-started" class="section">
+            <div class="container">
+                <h2>Quick Start</h2>
+                
+                <div class="installation">
+                    <h3>Installation</h3>
+                    <div class="code-block">
+                        <pre># Clone the repository
+git clone https://github.com/Lucascluz/memora.git
+cd memora
+
+# Add client to your project
+go get github.com/Lucascluz/memora-client</pre>
+                    </div>
+                </div>
+
+                <h3>Start the Server</h3>
+                <div class="code-block">
+                    <pre># Run the server from source
+cd server
+go run cmd/main.go
+
+# Or build and run
+go build -o memora-server cmd/main.go
+./memora-server
+
+# Or with Docker
+docker build -t memora-server .
+docker run -p 1212:1212 memora-server</pre>
+                </div>
+
+                <h3>Use the Client</h3>
+                <div class="code-block">
+                    <pre>package main
+
+import (
+    "context"
+    "log"
+    
+    "github.com/Lucascluz/memora-client/client"
+)
+
+func main() {
+    // Create client
+    memClient, err := client.NewClient("localhost:1212")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer memClient.Close()
+    
+    ctx := context.Background()
+    
+    // Set a value
+    err = memClient.Set(ctx, "key1", []byte("Hello, Memora!"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    
+    // Get the value
+    value, err := memClient.Get(ctx, "key1")
+    if err != nil {
+        log.Fatal(err)
+    }
+    log.Printf("Value: %s", string(value))
+    
+    // Delete the key
+    found, err := memClient.Delete(ctx, "key1")
+    if err != nil {
+        log.Fatal(err)
+    }
+    log.Printf("Deleted: %v", found)
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="section api-section">
+            <div class="container">
+                <h2>API Reference</h2>
+                
+                <div class="api-method">
+                    <h4>NewClient(address string) (*Client, error)</h4>
+                    <p>Creates a new client connection to the Memora server at the specified address.</p>
+                    <div class="code-block">
+                        <pre>client, err := client.NewClient("localhost:1212")</pre>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>Set(ctx context.Context, key string, value []byte) error</h4>
+                    <p>Stores a key-value pair in the cache. If the key already exists, it will be overwritten.</p>
+                    <div class="code-block">
+                        <pre>err := client.Set(ctx, "mykey", []byte("myvalue"))</pre>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>Get(ctx context.Context, key string) ([]byte, error)</h4>
+                    <p>Retrieves the value associated with the given key. Returns an error if the key is not found.</p>
+                    <div class="code-block">
+                        <pre>value, err := client.Get(ctx, "mykey")</pre>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>Delete(ctx context.Context, key string) (bool, error)</h4>
+                    <p>Removes the key-value pair from the cache. Returns true if the key was found and deleted.</p>
+                    <div class="code-block">
+                        <pre>found, err := client.Delete(ctx, "mykey")</pre>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>SetString(ctx context.Context, key, value string) error</h4>
+                    <p>Convenience method to store a string value. Automatically converts to bytes.</p>
+                    <div class="code-block">
+                        <pre>err := client.SetString(ctx, "greeting", "Hello World")</pre>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>GetString(ctx context.Context, key string) (string, error)</h4>
+                    <p>Convenience method to retrieve a string value. Automatically converts from bytes.</p>
+                    <div class="code-block">
+                        <pre>greeting, err := client.GetString(ctx, "greeting")</pre>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>Close() error</h4>
+                    <p>Closes the connection to the server. Should be called when done using the client.</p>
+                    <div class="code-block">
+                        <pre>err := client.Close()</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2>Architecture</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3>server/</h3>
+                        <p>The core cache server built in Go. Handles gRPC requests and manages the in-memory cache with thread-safe operations.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>client/</h3>
+                        <p>Go client library that abstracts gRPC communication. Provides a simple interface for cache operations.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>proto/</h3>
+                        <p>Protocol Buffer definitions for gRPC communication. Ensures type safety and efficient serialization.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>examples/</h3>
+                        <p>Example implementations demonstrating how to use the client library with the cache server.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Memora. Built with ❤️ by <a href="https://github.com/Lucascluz" style="color: #667eea;">Lucas</a></p>
+            <p>
+                <a href="https://github.com/Lucascluz/memora" style="color: #667eea; margin: 0 10px;">GitHub Repository</a> |
+                <a href="https://github.com/Lucascluz/memora/tree/main/server" style="color: #667eea; margin: 0 10px;">Server</a> |
+                <a href="https://github.com/Lucascluz/memora/tree/main/client" style="color: #667eea; margin: 0 10px;">Client</a> |
+                <a href="https://github.com/Lucascluz/memora/tree/main/proto" style="color: #667eea; margin: 0 10px;">Protocol</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
