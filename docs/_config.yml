@@ -1,7 +1,7 @@
 theme: jekyll-theme-minimal
 title: Memora Documentation
 description: A simple, fast, and efficient distributed cache store built in Go
-url: "https://lucascluz.github.io"
+url: "https://Lucascluz.github.io"
 baseurl: "/memora"
 repository: "Lucascluz/memora"
 author:
