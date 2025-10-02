@@ -2,18 +2,20 @@ syntax = "proto3";
 
 package memora;
 
-option go_package = "github.com/Lucascluz/memora-proto/gen;memora";
+option go_package = "github.com/Lucascluz/memora/proto/gen;memora";
 
 service MemoraService{
     rpc Set (SetRequest) returns (SetResponse);
     rpc Get (GetRequest) returns (GetResponse);
     rpc Delete (DeleteRequest) returns (DeleteResponse);
+    rpc Connect (ConnectionRequest) returns (ConnectionResponse);
 }
 
 message SetRequest {
-    string key = 1;
-    bytes value = 2;
-    int64 ttl = 3;
+    string clientKey = 1;
+    string entryKey = 2;
+    bytes value = 3;
+    int64 ttl = 4;
 }
 
 message SetResponse {
@@ -22,7 +24,8 @@ message SetResponse {
 }
 
 message GetRequest {
-    string key = 1; 
+    string clientKey = 1;
+    string entryKey = 2; 
 }
 
 message GetResponse {
@@ -31,10 +34,20 @@ message GetResponse {
 }
 
 message DeleteRequest {
-    string key = 1;
+    string clientKey = 1;
+    string entryKey = 2;
 }
 
 message DeleteResponse {
     bool found = 1;
     string status = 2;
+}
+
+message ConnectionRequest {
+    string clientIP = 1;
+}
+
+message ConnectionResponse {
+    bool success = 1;
+    string clientKey = 2;
 }

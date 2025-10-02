@@ -23,9 +23,10 @@ const (
 
 type SetRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
-	Value         []byte                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
-	Ttl           int64                  `protobuf:"varint,3,opt,name=ttl,proto3" json:"ttl,omitempty"`
+	ClientKey     string                 `protobuf:"bytes,1,opt,name=clientKey,proto3" json:"clientKey,omitempty"`
+	EntryKey      string                 `protobuf:"bytes,2,opt,name=entryKey,proto3" json:"entryKey,omitempty"`
+	Value         []byte                 `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Ttl           int64                  `protobuf:"varint,4,opt,name=ttl,proto3" json:"ttl,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -60,9 +61,16 @@ func (*SetRequest) Descriptor() ([]byte, []int) {
 	return file_memora_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *SetRequest) GetKey() string {
+func (x *SetRequest) GetClientKey() string {
 	if x != nil {
-		return x.Key
+		return x.ClientKey
+	}
+	return ""
+}
+
+func (x *SetRequest) GetEntryKey() string {
+	if x != nil {
+		return x.EntryKey
 	}
 	return ""
 }
@@ -135,7 +143,8 @@ func (x *SetResponse) GetStatus() string {
 
 type GetRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	ClientKey     string                 `protobuf:"bytes,1,opt,name=clientKey,proto3" json:"clientKey,omitempty"`
+	EntryKey      string                 `protobuf:"bytes,2,opt,name=entryKey,proto3" json:"entryKey,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -170,9 +179,16 @@ func (*GetRequest) Descriptor() ([]byte, []int) {
 	return file_memora_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *GetRequest) GetKey() string {
+func (x *GetRequest) GetClientKey() string {
 	if x != nil {
-		return x.Key
+		return x.ClientKey
+	}
+	return ""
+}
+
+func (x *GetRequest) GetEntryKey() string {
+	if x != nil {
+		return x.EntryKey
 	}
 	return ""
 }
@@ -231,7 +247,8 @@ func (x *GetResponse) GetValue() []byte {
 
 type DeleteRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	ClientKey     string                 `protobuf:"bytes,1,opt,name=clientKey,proto3" json:"clientKey,omitempty"`
+	EntryKey      string                 `protobuf:"bytes,2,opt,name=entryKey,proto3" json:"entryKey,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -266,9 +283,16 @@ func (*DeleteRequest) Descriptor() ([]byte, []int) {
 	return file_memora_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *DeleteRequest) GetKey() string {
+func (x *DeleteRequest) GetClientKey() string {
 	if x != nil {
-		return x.Key
+		return x.ClientKey
+	}
+	return ""
+}
+
+func (x *DeleteRequest) GetEntryKey() string {
+	if x != nil {
+		return x.EntryKey
 	}
 	return ""
 }
@@ -325,34 +349,139 @@ func (x *DeleteResponse) GetStatus() string {
 	return ""
 }
 
+type ConnectionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ClientIP      string                 `protobuf:"bytes,1,opt,name=clientIP,proto3" json:"clientIP,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConnectionRequest) Reset() {
+	*x = ConnectionRequest{}
+	mi := &file_memora_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConnectionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConnectionRequest) ProtoMessage() {}
+
+func (x *ConnectionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_memora_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConnectionRequest.ProtoReflect.Descriptor instead.
+func (*ConnectionRequest) Descriptor() ([]byte, []int) {
+	return file_memora_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ConnectionRequest) GetClientIP() string {
+	if x != nil {
+		return x.ClientIP
+	}
+	return ""
+}
+
+type ConnectionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	ClientKey     string                 `protobuf:"bytes,2,opt,name=clientKey,proto3" json:"clientKey,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConnectionResponse) Reset() {
+	*x = ConnectionResponse{}
+	mi := &file_memora_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConnectionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConnectionResponse) ProtoMessage() {}
+
+func (x *ConnectionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_memora_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConnectionResponse.ProtoReflect.Descriptor instead.
+func (*ConnectionResponse) Descriptor() ([]byte, []int) {
+	return file_memora_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ConnectionResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *ConnectionResponse) GetClientKey() string {
+	if x != nil {
+		return x.ClientKey
+	}
+	return ""
+}
+
 var File_memora_proto protoreflect.FileDescriptor
 
 const file_memora_proto_rawDesc = "" +
 	"\n" +
-	"\fmemora.proto\x12\x06memora\"F\n" +
+	"\fmemora.proto\x12\x06memora\"n\n" +
 	"\n" +
-	"SetRequest\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\fR\x05value\x12\x10\n" +
-	"\x03ttl\x18\x03 \x01(\x03R\x03ttl\"?\n" +
+	"SetRequest\x12\x1c\n" +
+	"\tclientKey\x18\x01 \x01(\tR\tclientKey\x12\x1a\n" +
+	"\bentryKey\x18\x02 \x01(\tR\bentryKey\x12\x14\n" +
+	"\x05value\x18\x03 \x01(\fR\x05value\x12\x10\n" +
+	"\x03ttl\x18\x04 \x01(\x03R\x03ttl\"?\n" +
 	"\vSetResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\tR\x06status\"\x1e\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"F\n" +
 	"\n" +
-	"GetRequest\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\";\n" +
+	"GetRequest\x12\x1c\n" +
+	"\tclientKey\x18\x01 \x01(\tR\tclientKey\x12\x1a\n" +
+	"\bentryKey\x18\x02 \x01(\tR\bentryKey\";\n" +
 	"\vGetResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\fR\x05value\"!\n" +
-	"\rDeleteRequest\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\">\n" +
+	"\x05value\x18\x02 \x01(\fR\x05value\"I\n" +
+	"\rDeleteRequest\x12\x1c\n" +
+	"\tclientKey\x18\x01 \x01(\tR\tclientKey\x12\x1a\n" +
+	"\bentryKey\x18\x02 \x01(\tR\bentryKey\">\n" +
 	"\x0eDeleteResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\tR\x06status2\xa8\x01\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"/\n" +
+	"\x11ConnectionRequest\x12\x1a\n" +
+	"\bclientIP\x18\x01 \x01(\tR\bclientIP\"L\n" +
+	"\x12ConnectionResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1c\n" +
+	"\tclientKey\x18\x02 \x01(\tR\tclientKey2\xea\x01\n" +
 	"\rMemoraService\x12.\n" +
 	"\x03Set\x12\x12.memora.SetRequest\x1a\x13.memora.SetResponse\x12.\n" +
 	"\x03Get\x12\x12.memora.GetRequest\x1a\x13.memora.GetResponse\x127\n" +
-	"\x06Delete\x12\x15.memora.DeleteRequest\x1a\x16.memora.DeleteResponseB.Z,github.com/Lucascluz/memora-proto/gen;memorab\x06proto3"
+	"\x06Delete\x12\x15.memora.DeleteRequest\x1a\x16.memora.DeleteResponse\x12@\n" +
+	"\aConnect\x12\x19.memora.ConnectionRequest\x1a\x1a.memora.ConnectionResponseB.Z,github.com/Lucascluz/memora/proto/gen;memorab\x06proto3"
 
 var (
 	file_memora_proto_rawDescOnce sync.Once
@@ -366,24 +495,28 @@ func file_memora_proto_rawDescGZIP() []byte {
 	return file_memora_proto_rawDescData
 }
 
-var file_memora_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_memora_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_memora_proto_goTypes = []any{
-	(*SetRequest)(nil),     // 0: memora.SetRequest
-	(*SetResponse)(nil),    // 1: memora.SetResponse
-	(*GetRequest)(nil),     // 2: memora.GetRequest
-	(*GetResponse)(nil),    // 3: memora.GetResponse
-	(*DeleteRequest)(nil),  // 4: memora.DeleteRequest
-	(*DeleteResponse)(nil), // 5: memora.DeleteResponse
+	(*SetRequest)(nil),         // 0: memora.SetRequest
+	(*SetResponse)(nil),        // 1: memora.SetResponse
+	(*GetRequest)(nil),         // 2: memora.GetRequest
+	(*GetResponse)(nil),        // 3: memora.GetResponse
+	(*DeleteRequest)(nil),      // 4: memora.DeleteRequest
+	(*DeleteResponse)(nil),     // 5: memora.DeleteResponse
+	(*ConnectionRequest)(nil),  // 6: memora.ConnectionRequest
+	(*ConnectionResponse)(nil), // 7: memora.ConnectionResponse
 }
 var file_memora_proto_depIdxs = []int32{
 	0, // 0: memora.MemoraService.Set:input_type -> memora.SetRequest
 	2, // 1: memora.MemoraService.Get:input_type -> memora.GetRequest
 	4, // 2: memora.MemoraService.Delete:input_type -> memora.DeleteRequest
-	1, // 3: memora.MemoraService.Set:output_type -> memora.SetResponse
-	3, // 4: memora.MemoraService.Get:output_type -> memora.GetResponse
-	5, // 5: memora.MemoraService.Delete:output_type -> memora.DeleteResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	6, // 3: memora.MemoraService.Connect:input_type -> memora.ConnectionRequest
+	1, // 4: memora.MemoraService.Set:output_type -> memora.SetResponse
+	3, // 5: memora.MemoraService.Get:output_type -> memora.GetResponse
+	5, // 6: memora.MemoraService.Delete:output_type -> memora.DeleteResponse
+	7, // 7: memora.MemoraService.Connect:output_type -> memora.ConnectionResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -400,7 +533,7 @@ func file_memora_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_memora_proto_rawDesc), len(file_memora_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

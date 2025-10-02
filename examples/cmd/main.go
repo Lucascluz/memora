@@ -20,6 +20,14 @@ func main() {
 			log.Printf("Error closing client: %v", err)
 		}
 	}()
+	log.Printf("✓ Client created successfully")
+
+	// Register client to the server
+	err = memClient.Connect(ctx)
+	if err != nil {
+		log.Fatalf("Error connecting to server: %v", err)
+	}
+	log.Printf("✓ Client connected to server successfully")
 
 	testKey := "test"
 	testValue := []byte("test value")

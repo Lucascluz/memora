@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	MemoraService_Set_FullMethodName    = "/memora.MemoraService/Set"
-	MemoraService_Get_FullMethodName    = "/memora.MemoraService/Get"
-	MemoraService_Delete_FullMethodName = "/memora.MemoraService/Delete"
+	MemoraService_Set_FullMethodName     = "/memora.MemoraService/Set"
+	MemoraService_Get_FullMethodName     = "/memora.MemoraService/Get"
+	MemoraService_Delete_FullMethodName  = "/memora.MemoraService/Delete"
+	MemoraService_Connect_FullMethodName = "/memora.MemoraService/Connect"
 )
 
 // MemoraServiceClient is the client API for MemoraService service.
@@ -31,6 +32,7 @@ type MemoraServiceClient interface {
 	Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetResponse, error)
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	Connect(ctx context.Context, in *ConnectionRequest, opts ...grpc.CallOption) (*ConnectionResponse, error)
 }
 
 type memoraServiceClient struct {
@@ -71,6 +73,16 @@ func (c *memoraServiceClient) Delete(ctx context.Context, in *DeleteRequest, opt
 	return out, nil
 }
 
+func (c *memoraServiceClient) Connect(ctx context.Context, in *ConnectionRequest, opts ...grpc.CallOption) (*ConnectionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ConnectionResponse)
+	err := c.cc.Invoke(ctx, MemoraService_Connect_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MemoraServiceServer is the server API for MemoraService service.
 // All implementations must embed UnimplementedMemoraServiceServer
 // for forward compatibility.
@@ -78,6 +90,7 @@ type MemoraServiceServer interface {
 	Set(context.Context, *SetRequest) (*SetResponse, error)
 	Get(context.Context, *GetRequest) (*GetResponse, error)
 	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
+	Connect(context.Context, *ConnectionRequest) (*ConnectionResponse, error)
 	mustEmbedUnimplementedMemoraServiceServer()
 }
 
@@ -96,6 +109,9 @@ func (UnimplementedMemoraServiceServer) Get(context.Context, *GetRequest) (*GetR
 }
 func (UnimplementedMemoraServiceServer) Delete(context.Context, *DeleteRequest) (*DeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedMemoraServiceServer) Connect(context.Context, *ConnectionRequest) (*ConnectionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Connect not implemented")
 }
 func (UnimplementedMemoraServiceServer) mustEmbedUnimplementedMemoraServiceServer() {}
 func (UnimplementedMemoraServiceServer) testEmbeddedByValue()                       {}
@@ -172,6 +188,24 @@ func _MemoraService_Delete_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MemoraService_Connect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConnectionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MemoraServiceServer).Connect(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MemoraService_Connect_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MemoraServiceServer).Connect(ctx, req.(*ConnectionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MemoraService_ServiceDesc is the grpc.ServiceDesc for MemoraService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +224,10 @@ var MemoraService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _MemoraService_Delete_Handler,
+		},
+		{
+			MethodName: "Connect",
+			Handler:    _MemoraService_Connect_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
