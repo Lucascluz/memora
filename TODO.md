@@ -1,5 +1,4 @@
 ## Server
-[] Validate ttl before returning string
 [] Build docker image and upload to docker store
 [] Implement connection e validation and user authentication to the server
 [] Implement ttl validation and cleanup
