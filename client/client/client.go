@@ -33,7 +33,6 @@ func NewClient(address string) (*Client, error) {
 	return &Client{conn: conn, client: c, key: ""}, nil
 }
 
-
 // Connect establishes a connection with the Memora server and gets a client key
 func (c *Client) Connect(ctx context.Context) error {
 	// Get the local IP address
@@ -60,8 +59,8 @@ func (c *Client) Connect(ctx context.Context) error {
 
 // Set stores a key-value pair in the Memora service.
 // It takes a context, key string, and value as bytes, returning an error if the operation fails.
-func (c *Client) Set(ctx context.Context, key string, value []byte) error {
-	req := &pb.SetRequest{ClientKey: c.key, EntryKey: key, Value: value}
+func (c *Client) Set(ctx context.Context, key string, value []byte, ttl int64) error {
+	req := &pb.SetRequest{ClientKey: c.key, EntryKey: key, Value: value, Ttl: ttl}
 	resp, err := c.client.Set(ctx, req)
 	if err != nil {
 		return fmt.Errorf("failed to set key %s: %w", key, err)
@@ -108,8 +107,9 @@ func (c *Client) Close() error {
 
 // SetString stores a string value in the cache with the given key.
 // This is a convenience method that converts the string to bytes.
+// The ttl is set to 0 (no expiration) by default.
 func (c *Client) SetString(ctx context.Context, key, value string) error {
-	return c.Set(ctx, key, []byte(value))
+	return c.Set(ctx, key, []byte(value), 0)
 }
 
 // GetString retrieves a value from the cache and returns it as a string.

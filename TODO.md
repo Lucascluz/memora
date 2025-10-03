@@ -1,9 +1,10 @@
 ## Server
-[] Implement gracefull shutdown
+[] Validate ttl before returning string
 [] Build docker image and upload to docker store
 [] Implement connection e validation and user authentication to the server
 [] Implement ttl validation and cleanup
-[] Implement revorey file
+[] Implement .pit point in time snapshot file for crash recovery
+[] Implement .aof append only file for redundancy an recovery assistance
 
 ## Client
 [] Provide serialising methods and signatures to facilitate to byte and from byte parsing

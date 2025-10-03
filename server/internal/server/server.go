@@ -56,7 +56,7 @@ func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, 
 	}
 
 	// set cache entry
-	err := s.cache.Set(req.EntryKey, req.Value)
+	err := s.cache.Set(req.EntryKey, req.Value, req.Ttl)
 	if err != nil {
 		return nil, err
 	}
